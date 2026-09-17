@@ -1,0 +1,8 @@
+# Shared Core: Aenderungen hier betreffen alle parallelen Batches.
+# Review ist hier Pflicht, Feature-Ordner koennen eigenstaendig laufen.
+/src/core/        @Derogatary
+/src/app/         @Derogatary
+/src/ui/          @Derogatary
+/.github/         @Derogatary
+/CLAUDE.md        @Derogatary
+/package.json     @Derogatary

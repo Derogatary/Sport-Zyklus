@@ -1,0 +1,515 @@
+:root {
+  color-scheme: dark;
+
+  --bg: #120f17;
+  --surface: #1c1824;
+  --surface-2: #241f2e;
+  --fg: #f3eef8;
+  --fg-muted: #b3a8c2;
+  --border: #322b3f;
+  --accent: #e0709a;
+
+  --phase-menstruation: #e05c72;
+  --phase-follicular: #4fb286;
+  --phase-ovulation: #f0a742;
+  --phase-luteal: #8a7de0;
+
+  --chart-1: #f08fb0;
+  --chart-2: #8a7de0;
+  --chart-3: #4fb286;
+  --chart-4: #f0c34a;
+
+  --radius: 14px;
+  --gap: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+.app__header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  padding: 14px 16px;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.app__title {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.app__main {
+  flex: 1;
+  padding: 16px 16px 96px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* ---------- Karten ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-inline-start: 4px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap);
+  margin-bottom: 10px;
+}
+
+.card__title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.card__subtitle {
+  margin: 2px 0 0;
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+.card__body > * + * {
+  margin-top: 10px;
+}
+
+.text {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.text--muted {
+  color: var(--fg-muted);
+}
+
+.note {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--fg-muted);
+}
+
+.disclaimer {
+  margin: 8px 4px 0;
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+}
+
+/* ---------- Heute ---------- */
+
+.today__date {
+  margin: 0 0 6px;
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+}
+
+.today__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap);
+}
+
+.today__cycleday {
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.today__total {
+  color: var(--fg-muted);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.today__next {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  text-align: right;
+}
+
+.today__next strong {
+  color: var(--fg);
+  font-size: 0.95rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #14101a;
+}
+
+/* ---------- Level-Anzeige ---------- */
+
+.meter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meter__bars {
+  display: flex;
+  gap: 3px;
+}
+
+.meter__bar {
+  width: 22px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface-2);
+}
+
+.meter__bar.is-on {
+  background: var(--accent);
+}
+
+.meter__label {
+  font-size: 0.82rem;
+  color: var(--fg-muted);
+}
+
+/* ---------- Listen ---------- */
+
+.list {
+  margin: 0;
+  padding-inline-start: 20px;
+  font-size: 0.9rem;
+}
+
+.list li {
+  margin-block: 3px;
+}
+
+.list--do li::marker {
+  content: '✓  ';
+  color: var(--phase-follicular);
+}
+
+.list--avoid li::marker {
+  content: '–  ';
+  color: var(--phase-menstruation);
+}
+
+/* ---------- Hormone ---------- */
+
+.hormones {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hormones__row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr 2.6rem;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.hormones__track {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.hormones__fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--chart-2), var(--chart-1));
+}
+
+.hormones__value {
+  text-align: right;
+  color: var(--fg-muted);
+}
+
+.chart svg {
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+
+.chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+}
+
+.chart__legend li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chart__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* ---------- Timeline ---------- */
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 60dvh;
+  overflow-y: auto;
+}
+
+.timeline__day {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 12px 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  text-align: start;
+  font-size: 0.88rem;
+}
+
+.timeline__day.is-today {
+  background: var(--surface-2);
+}
+
+.timeline__day.is-selected {
+  border-color: var(--accent);
+}
+
+.timeline__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.timeline__phase,
+.timeline__cycleday {
+  color: var(--fg-muted);
+  font-size: 0.8rem;
+}
+
+/* ---------- Formular ---------- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.field--row {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.field input[type='date'] {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--fg);
+}
+
+.field input[type='range'] {
+  accent-color: var(--accent);
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #1a0f16;
+  font-weight: 600;
+}
+
+.button--ghost {
+  width: auto;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  color: var(--fg);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.button--danger {
+  background: transparent;
+  border: 1px solid var(--phase-menstruation);
+  color: var(--phase-menstruation);
+}
+
+/* ---------- Wissen ---------- */
+
+.tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.tab {
+  flex: 1;
+  padding: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-size: 0.85rem;
+}
+
+.tab.is-active {
+  background: var(--surface-2);
+  border-color: var(--accent);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+}
+
+.chip--stark {
+  background: color-mix(in srgb, var(--phase-follicular) 30%, var(--surface-2));
+  color: var(--fg);
+}
+
+.chip--gemischt {
+  background: color-mix(in srgb, var(--phase-ovulation) 30%, var(--surface-2));
+  color: var(--fg);
+}
+
+.chip--schwach {
+  background: color-mix(in srgb, var(--phase-menstruation) 30%, var(--surface-2));
+  color: var(--fg);
+}
+
+.link {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+/* ---------- Navigation ---------- */
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  inset-inline: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: space-around;
+  gap: 2px;
+  max-width: 560px;
+  margin-inline: auto;
+  padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+
+.nav__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 2px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--fg-muted);
+  font-size: 0.7rem;
+}
+
+.nav__item.is-active {
+  color: var(--fg);
+  background: var(--surface-2);
+}
+
+.nav__icon {
+  font-size: 1.1rem;
+}
+
+.onboarding {
+  padding-top: 24px;
+  max-width: 560px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card {
+    transition: border-color 120ms ease;
+  }
+}

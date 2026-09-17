@@ -1,0 +1,33 @@
+name: Quelle ergaenzen
+description: Studie, Buch oder Creator ins Wissens-Modul aufnehmen.
+title: '[Quelle] '
+labels: [content]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Titel
+    validations:
+      required: true
+  - type: input
+    id: author
+    attributes:
+      label: Autor:in / Kanal
+    validations:
+      required: true
+  - type: dropdown
+    id: evidence
+    attributes:
+      label: Einordnung
+      options:
+        - 'stark - Metaanalyse, systematisches Review, Leitlinie'
+        - 'gemischt - Einzelstudien oder Fachbuch mit Interpretation'
+        - 'schwach - populaer, wenig belegt'
+    validations:
+      required: true
+  - type: textarea
+    id: takeaway
+    attributes:
+      label: Was folgt daraus fuer die App?
+    validations:
+      required: true

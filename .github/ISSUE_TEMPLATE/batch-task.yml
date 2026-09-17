@@ -1,0 +1,50 @@
+name: Batch-Aufgabe
+description: Eine abgeschlossene Aufgabe, die parallel zu anderen bearbeitet werden kann.
+title: '[Batch] '
+labels: [batch]
+body:
+  - type: input
+    id: module
+    attributes:
+      label: Modul
+      description: Feature-ID oder Ordner, z.B. `training`, `library`, `src/core`
+      placeholder: training
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Ziel
+      description: Welche Nutzerfrage wird danach beantwortet?
+      placeholder: 'Als Nutzerin sehe ich ...'
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Erwartete Dateien
+      description: Welche Dateien werden angelegt oder geaendert? Ueberschneidungen mit anderen offenen Batches hier notieren.
+      placeholder: |
+        src/features/training/feature.tsx
+        src/features/training/content.ts
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Akzeptanzkriterien
+      placeholder: |
+        - [ ] Empfehlung fuer alle vier Phasen vorhanden
+        - [ ] Test deckt die Phasenzuordnung ab
+        - [ ] Quelle in library/content.ts ergaenzt
+    validations:
+      required: true
+  - type: dropdown
+    id: shared
+    attributes:
+      label: Beruehrt Shared Core?
+      options:
+        - 'Nein - nur eigenes Modul'
+        - 'Ja - src/core, src/ui, src/app oder Build-Config'
+    validations:
+      required: true
